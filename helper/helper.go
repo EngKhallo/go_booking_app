@@ -1,11 +1,11 @@
-package main
+package helper
 
 import (
 	"fmt"
 	"strings"
 )
 
-func validateUserInputs(userName string, email string, userTickets uint) (bool, bool, bool) {
+func ValidateUserInputs(userName string, email string, userTickets uint, remainingTickets uint) (bool, bool, bool) {
 	isValidName := len(userName) >= 2
 	isValidEmail := strings.Contains(email, "@")
 	isValidTicketBooking := userTickets > 0 && userTickets <= remainingTickets
@@ -13,7 +13,7 @@ func validateUserInputs(userName string, email string, userTickets uint) (bool, 
 	return isValidName, isValidEmail, isValidTicketBooking
 }
 
-func getUserInputs() (string, string, uint) {
+func GetUserInputs() (string, string, uint) {
 	var userName string
 	var email string
 	var userTickets uint

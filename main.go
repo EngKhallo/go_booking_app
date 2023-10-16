@@ -1,6 +1,7 @@
 package main
 
 import (
+	"booking-app/helper"
 	"fmt"
 )
 
@@ -19,8 +20,8 @@ func main() {
 
 	for remainingTickets > 0 && len(bookings) < 50 { // conditions with loop
 
-		userName, email, userTickets := getUserInputs()
-		isValidName, isValidEmail, isValidTicketBooking := validateUserInputs(userName, email, userTickets)
+		userName, email, userTickets := helper.GetUserInputs()
+		isValidName, isValidEmail, isValidTicketBooking := helper.ValidateUserInputs(userName, email, userTickets, remainingTickets)
 
 		if isValidName && isValidEmail && isValidTicketBooking {
 
@@ -45,6 +46,10 @@ func main() {
 		}
 	}
 
+}
+
+func getUserInputs() {
+	panic("unimplemented")
 }
 
 func greetUser() {
