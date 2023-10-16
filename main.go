@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	var conferenceName = "Go Conference"
@@ -12,8 +15,7 @@ func main() {
 	fmt.Printf("We've a total of %v tickets but %v tickets are still available\n", conferenceTickets, remainingTickets)
 	fmt.Println("Get your tickets here to attend")
 
-	for {
-
+	for remainingTickets > 0 && len(bookings) < 50 { // conditions with loop
 		var userName string
 		var email string
 		var userTickets uint
@@ -27,7 +29,11 @@ func main() {
 		fmt.Println("enter number of tickets: ")
 		fmt.Scan(&userTickets)
 
-		if userTickets <= remainingTickets {
+		isValidName := len(userName) >= 2
+		isValidEmail := strings.Contains(email, "@")
+		isValidTicketBooking := userTickets > 0 && userTickets <= remainingTickets
+
+		if isValidName && isValidEmail && isValidTicketBooking {
 
 			remainingTickets = remainingTickets - userTickets
 			bookings = append(bookings, userName)
@@ -42,7 +48,17 @@ func main() {
 				break
 			}
 		} else {
-			fmt.Printf("we only have %v tickets remaining, you cann't book %v tickets", remainingTickets, userTickets)
+			if !isValidName {
+				fmt.Println("Invalid username")
+			}
+			if !isValidEmail {
+				fmt.Println("Invalid email")
+			}
+			if !isValidTicketBooking {
+				fmt.Println("Invalid booking ticket number")
+			}
+
+			fmt.Println("Your input is invalid, try again")
 		}
 	}
 
