@@ -14,30 +14,13 @@ func main() {
 	greetUser(conferenceName, conferenceTickets, remainingTickets)
 
 	for remainingTickets > 0 && len(bookings) < 50 { // conditions with loop
-		var userName string
-		var email string
-		var userTickets uint
-		// ask user for their name: user input
-		fmt.Println("Please enter your name: ")
-		fmt.Scan(&userName)
 
-		fmt.Println("Please enter your email: ")
-		fmt.Scan(&email)
-
-		fmt.Println("enter number of tickets: ")
-		fmt.Scan(&userTickets)
-
+		userName, email, userTickets := getUserInputs()
 		isValidName, isValidEmail, isValidTicketBooking := validateUserInputs(userName, email, userTickets, remainingTickets)
 
 		if isValidName && isValidEmail && isValidTicketBooking {
 
-			remainingTickets = remainingTickets - userTickets
-			bookings = append(bookings, userName)
-
-			fmt.Printf("Thank you %v for booking %v tickets, you'll receive confirmation email at %v\n", userName, userTickets, email)
-			fmt.Printf("%v tickets still remains for %v\n", remainingTickets, conferenceName)
-
-			fmt.Printf("Booked names are %v\n", bookings)
+			bookTickets(remainingTickets, userTickets, bookings, userName, email, conferenceName)
 
 			if remainingTickets == 0 {
 				fmt.Printf("availbele tickets are all sold out\n")
@@ -72,4 +55,30 @@ func validateUserInputs(userName string, email string, userTickets uint, remaini
 	isValidTicketBooking := userTickets > 0 && userTickets <= remainingTickets
 
 	return isValidName, isValidEmail, isValidTicketBooking
+}
+
+func getUserInputs() (string, string, uint) {
+	var userName string
+	var email string
+	var userTickets uint
+	// ask user for their name: user input
+	fmt.Println("Please enter your name: ")
+	fmt.Scan(&userName)
+
+	fmt.Println("Please enter your email: ")
+	fmt.Scan(&email)
+
+	fmt.Println("enter number of tickets: ")
+	fmt.Scan(&userTickets)
+
+	return userName, email, userTickets
+}
+
+func bookTickets(remainingTickets uint, userTickets uint, bookings []string, userName, email string, conferenceName string) {
+	remainingTickets = remainingTickets - userTickets
+	bookings = append(bookings, userName)
+
+	fmt.Printf("Thank you %v for booking %v tickets, you'll receive confirmation email at %v\n", userName, userTickets, email)
+	fmt.Printf("%v tickets still remains for %v\n", remainingTickets, conferenceName)
+	fmt.Printf("Booked names are %v\n", bookings)
 }
