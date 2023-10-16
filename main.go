@@ -11,9 +11,7 @@ func main() {
 	var remainingTickets uint = 50
 	var bookings []string
 
-	fmt.Printf("Welcome to %v booking application\n", conferenceName)
-	fmt.Printf("We've a total of %v tickets but %v tickets are still available\n", conferenceTickets, remainingTickets)
-	fmt.Println("Get your tickets here to attend")
+	greetUser(conferenceName, conferenceTickets, remainingTickets)
 
 	for remainingTickets > 0 && len(bookings) < 50 { // conditions with loop
 		var userName string
@@ -29,9 +27,7 @@ func main() {
 		fmt.Println("enter number of tickets: ")
 		fmt.Scan(&userTickets)
 
-		isValidName := len(userName) >= 2
-		isValidEmail := strings.Contains(email, "@")
-		isValidTicketBooking := userTickets > 0 && userTickets <= remainingTickets
+		isValidName, isValidEmail, isValidTicketBooking := validateUserInputs(userName, email, userTickets, remainingTickets)
 
 		if isValidName && isValidEmail && isValidTicketBooking {
 
@@ -62,4 +58,18 @@ func main() {
 		}
 	}
 
+}
+
+func greetUser(confName string, confTickets int, remainTickets uint) {
+	fmt.Printf("Hello, welcome to %v booking application\n", confName)
+	fmt.Printf("We've a total of %v tickets but %v tickets are still available\n", confTickets, remainTickets)
+	fmt.Println("Get your tickets here to attend")
+}
+
+func validateUserInputs(userName string, email string, userTickets uint, remainingTickets uint) (bool, bool, bool) {
+	isValidName := len(userName) >= 2
+	isValidEmail := strings.Contains(email, "@")
+	isValidTicketBooking := userTickets > 0 && userTickets <= remainingTickets
+
+	return isValidName, isValidEmail, isValidTicketBooking
 }
