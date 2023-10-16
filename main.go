@@ -2,25 +2,29 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
-func main() {
-	var conferenceName = "Go Conference"
-	const conferenceTickets = 50
-	var remainingTickets uint = 50
-	var bookings []string
+// package level variables: needs to be accessed from everywhere outside the Main
+var conferenceName = "Go Conference"
 
-	greetUser(conferenceName, conferenceTickets, remainingTickets)
+const conferenceTickets = 50
+
+var remainingTickets uint = 50
+
+var bookings []string
+
+func main() {
+
+	greetUser()
 
 	for remainingTickets > 0 && len(bookings) < 50 { // conditions with loop
 
 		userName, email, userTickets := getUserInputs()
-		isValidName, isValidEmail, isValidTicketBooking := validateUserInputs(userName, email, userTickets, remainingTickets)
+		isValidName, isValidEmail, isValidTicketBooking := validateUserInputs(userName, email, userTickets)
 
 		if isValidName && isValidEmail && isValidTicketBooking {
 
-			bookTickets(remainingTickets, userTickets, bookings, userName, email, conferenceName)
+			bookTickets(userTickets, userName, email)
 
 			if remainingTickets == 0 {
 				fmt.Printf("availbele tickets are all sold out\n")
@@ -43,38 +47,13 @@ func main() {
 
 }
 
-func greetUser(confName string, confTickets int, remainTickets uint) {
-	fmt.Printf("Hello, welcome to %v booking application\n", confName)
-	fmt.Printf("We've a total of %v tickets but %v tickets are still available\n", confTickets, remainTickets)
+func greetUser() {
+	fmt.Printf("Hello, welcome to %v booking application\n", conferenceName)
+	fmt.Printf("We've a total of %v tickets but %v tickets are still available\n", conferenceTickets, remainingTickets)
 	fmt.Println("Get your tickets here to attend")
 }
 
-func validateUserInputs(userName string, email string, userTickets uint, remainingTickets uint) (bool, bool, bool) {
-	isValidName := len(userName) >= 2
-	isValidEmail := strings.Contains(email, "@")
-	isValidTicketBooking := userTickets > 0 && userTickets <= remainingTickets
-
-	return isValidName, isValidEmail, isValidTicketBooking
-}
-
-func getUserInputs() (string, string, uint) {
-	var userName string
-	var email string
-	var userTickets uint
-	// ask user for their name: user input
-	fmt.Println("Please enter your name: ")
-	fmt.Scan(&userName)
-
-	fmt.Println("Please enter your email: ")
-	fmt.Scan(&email)
-
-	fmt.Println("enter number of tickets: ")
-	fmt.Scan(&userTickets)
-
-	return userName, email, userTickets
-}
-
-func bookTickets(remainingTickets uint, userTickets uint, bookings []string, userName, email string, conferenceName string) {
+func bookTickets(userTickets uint, userName string, email string) {
 	remainingTickets = remainingTickets - userTickets
 	bookings = append(bookings, userName)
 
