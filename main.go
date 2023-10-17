@@ -12,7 +12,13 @@ const conferenceTickets = 50
 
 var remainingTickets uint = 50
 
-var bookings []string
+var bookings = make([]userData, 0) // initiates an empty list of userData struct
+
+type userData struct {
+	userName        string
+	email           string
+	numberOfTickets uint
+}
 
 func main() {
 
@@ -48,10 +54,6 @@ func main() {
 
 }
 
-func getUserInputs() {
-	panic("unimplemented")
-}
-
 func greetUser() {
 	fmt.Printf("Hello, welcome to %v booking application\n", conferenceName)
 	fmt.Printf("We've a total of %v tickets but %v tickets are still available\n", conferenceTickets, remainingTickets)
@@ -60,9 +62,15 @@ func greetUser() {
 
 func bookTickets(userTickets uint, userName string, email string) {
 	remainingTickets = remainingTickets - userTickets
-	bookings = append(bookings, userName)
+
+	var userData = userData{
+		userName:        userName,
+		email:           email,
+		numberOfTickets: userTickets,
+	}
+	bookings = append(bookings, userData)
 
 	fmt.Printf("Thank you %v for booking %v tickets, you'll receive confirmation email at %v\n", userName, userTickets, email)
 	fmt.Printf("%v tickets still remains for %v\n", remainingTickets, conferenceName)
-	fmt.Printf("Booked names are %v\n", bookings)
+	fmt.Printf("List of booked people are %v\n", bookings)
 }
