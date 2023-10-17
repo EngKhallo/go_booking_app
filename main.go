@@ -33,7 +33,7 @@ func main() {
 		if isValidName && isValidEmail && isValidTicketBooking {
 
 			bookTickets(userTickets, userName, email)
-			sendTicket(userTickets, userName, email)
+			go sendTicket(userTickets, userName, email)
 
 			if remainingTickets == 0 {
 				fmt.Printf("availbele tickets are all sold out\n")
