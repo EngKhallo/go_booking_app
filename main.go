@@ -3,6 +3,7 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
+	"time"
 )
 
 // package level variables: needs to be accessed from everywhere outside the Main
@@ -77,6 +78,7 @@ func bookTickets(userTickets uint, userName string, email string) {
 }
 
 func sendTicket(userTickets uint, userName string, email string) {
+	time.Sleep(10 * time.Second)
 	var ticket = fmt.Sprintf("%v tickets for %v", userTickets, userName)
 	fmt.Println("########")
 	fmt.Printf("Sending %v\n to email address: %v\n", ticket, email)
