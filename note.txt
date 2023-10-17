@@ -1,0 +1,19 @@
+fmt package functions:
+- print messages, collect user inputs, write into file
+
+Pointer &:
+-tells the memory location/address of the variable
+
+userTickets
+
+slices: abstraction of an array, flexible and dynamic list, can be re-sized
+
+tip: giving more useful user feedback information
+
+- Go programs are organized into packages
+and packages are collection of go files
+
+to export function from another package : capitalize its first word
+
+Scopes: local - function level, package, global
+
